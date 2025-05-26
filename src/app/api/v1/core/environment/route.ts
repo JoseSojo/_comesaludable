@@ -25,7 +25,7 @@ export async function GET(req: Request) {
     }
   });
 
-  const total = await prisma.environment.count();
+  const total = await prisma.environment.count({where: { AND: where }});
 
   return NextResponse.json({ data: list, page, pageSize, total });
 }

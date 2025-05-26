@@ -24,7 +24,7 @@ export async function GET(req: Request) {
     }
   });
 
-  const total = await prisma.menus.count();
+  const total = await prisma.category.count({where: { AND: where }});
 
   return NextResponse.json({ data: menus, page, pageSize, total });
 }

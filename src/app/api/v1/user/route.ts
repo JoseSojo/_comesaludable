@@ -30,7 +30,7 @@ export async function GET(req: Request) {
     }
   });
 
-  const total = await prisma.user.count();
+  const total = await prisma.user.count({where: { AND: where }});
 
   return NextResponse.json({ data: list, page, pageSize, total });
 }

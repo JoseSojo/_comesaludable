@@ -34,7 +34,7 @@ export async function GET(req: Request) {
     }
   });
 
-  const total = await prisma.restaurants.count();
+  const total = await prisma.restaurants.count({where: { AND: where }});
 
   return NextResponse.json({ data: menus, page, pageSize, total });
 }

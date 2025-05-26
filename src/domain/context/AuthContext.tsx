@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [restaurantData, setRestaurantData] = useState<RestaurantsType | null>(null);
 
   const LoginUser = async (email: string, password: string) => {
+    console.log("# # # # # #")
     const res = await signIn('credentials', {
       redirect: false,
       email,
@@ -64,8 +65,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (res?.ok) {
       setAuth(true);
-      if (res.url?.includes("administration")) setAdmin(true);
-      return { redirect: '/', message: "Inicio Exitoso" };
+      console.log(res);
+      if (res.url?.includes("admin")) setAdmin(true);
+      return { redirect: "", message: "Inicio Exitoso" };
     }
     return { error: 'Credenciales inválidas' }
   }
@@ -86,7 +88,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setRestaurant(user.access ? true : false);
         setRestaurantData(user);
       }
-      return { redirect: '/', message: "Inicio Exitoso" };
+      return { redirect: '', message: "Inicio Exitoso" };
     }
 
     return { error: 'Credenciales inválidas' }
@@ -131,7 +133,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           user: LoginUser,
           restaurant: LoginRestaurant,
         },
-        logout: signOut,
+        logout: () => signOut({ callbackUrl: process.env.NEXTAUTH_URL + '/login' }),
         restaurantData
       }}
       
