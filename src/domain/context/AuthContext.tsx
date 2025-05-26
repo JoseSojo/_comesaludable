@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setAuth(true);
       console.log(res);
       if (res.url?.includes("admin")) setAdmin(true);
-      return { redirect: "", message: "Inicio Exitoso" };
+      return { redirect: "/", message: "Inicio Exitoso" };
     }
     return { error: 'Credenciales inválidas' }
   }
@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           user: LoginUser,
           restaurant: LoginRestaurant,
         },
-        logout: () => signOut({ callbackUrl: process.env.NEXTAUTH_URL + '/login' }),
+        logout: () => signOut({ callbackUrl: '/' }),
         restaurantData
       }}
       
