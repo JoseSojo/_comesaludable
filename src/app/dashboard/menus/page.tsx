@@ -16,10 +16,10 @@ export default function Menus() {
     const [page, setPage] = useState(1)
     const [filter, setFilter] = useState<{ category?: string, type?: string, param?: string }>({});
     const entity = useMenusCrud(page, 10, filter);
+    const [selectIdDelete, setSelectIdDelete] = useState<string | null>(null);
     const [searchInput, setSearchInput] = useState('');
     const category = useCategoryCrud();
     const type = useTypeCrud();
-    const [selectIdDelete, setSelectIdDelete] = useState<string | null>(null);
 
     const HandleChangeSelectFilter = (selected: any, name: string) => {
         if (name === "category") setFilter({ ...filter, category: selected.id });

@@ -27,7 +27,7 @@ export default function PaginateSection({ total, long, page, next, prev }: Props
                     ? <button onClick={next} className="px-5 py-2 bg-emerald-400 hover:bg-emerald-600 hover:text-white rounded-md">
                         Siguiente
                     </button>
-                    : <span className="px-5 py-2 border rounded-md border-gray-600 text-gray-600">Anterior</span>
+                    : <span className="px-5 py-2 border rounded-md border-gray-600 text-gray-600">Siguiente</span>
                 }
             </div>
         </div>

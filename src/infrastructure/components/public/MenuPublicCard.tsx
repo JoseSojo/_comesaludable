@@ -18,7 +18,7 @@ export default function MenuPublicCard({ entity, session }: Props) {
     console.log(entity.ingredients);
 
     return (
-        <div className="p-2 shadow rounded-lg w-xl min-w-lg max-w-xl bg-white dark:bg-gray-900">
+        <div className="p-2 shadow-lg rounded-lg w-xl min-w-lg max-w-xl bg-white dark:bg-gray-900">
             <header className="pb-1 flex justify-between gap-5 items-center">
                 <div className="flex justify-between gap-5 items-center">
                     <div className="border-2 border-emerald-500 rounded-full">
@@ -32,10 +32,14 @@ export default function MenuPublicCard({ entity, session }: Props) {
                 </div>
             </header>
             <div className="flex w-full gap-5 mb-2">
+
                 <span className="rounded-[20px] px-3 py-1 text-xs border-1 border-emerald-700 text-emerald-700 flex gap-2">Categoria: <b>{entity.categoryReference.name}</b></span>
                 <span className="rounded-[20px] px-3 py-1 text-xs border-1 border-emerald-700 text-emerald-700 flex gap-2">Tipo: <b>{entity.typeReference.name}</b></span>
             </div>
             <section className="">
+                <div className="w-full flex items-center justify-center md:justify-start mb-3">
+                    <Image alt="" src={`/images/logos/l-test.jpg`} className="w-full object-cover h-[200px]" width={200} height={200} />
+                </div>
                 <p className="p-3 text-sm dark:text-gray-200">
                     {entity.about}
                 </p>

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/infrastructure/lib/prisma';
 import { Prisma } from '@prisma/client';
+import { hashPassword } from '@/infrastructure/lib/hash';
+import { UserCreate } from '@/infrastructure/interface/user.type';
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -36,13 +38,24 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const body = await req.json();
+  const body = await req.json() as UserCreate;
 
-  const menu = await prisma.user.create({
+  const hash = await hashPassword(body.password)
+
+  console.log(body);
+
+  const entity = await prisma.user.create({
     data: {
-      ...body
+      acceptEmail: body.acceptEmail,
+      age: body.age.toString(),
+      email: body.email,
+      lastname: body.lastname,
+      name: body.lastname,
+      password: hash,
+      admin: false,
+      restaurant: false
     },
   });
 
-  return NextResponse.json(menu);
+  return NextResponse.json(entity);
 }
