@@ -13,7 +13,6 @@ import Modal from '@/infrastructure/components/common/Modal';
 import Link from 'next/link';
 import DeleteAlert from '@/infrastructure/components/common/DeleteAlert';
 
-
 export default function RestaurantPage() {
     const [modalForm, setModalForm] = useState(false);
     const [page, setPage] = useState(1)

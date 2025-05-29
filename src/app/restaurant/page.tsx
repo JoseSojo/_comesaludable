@@ -16,6 +16,9 @@ import MenuSection from '@/infrastructure/components/sections/restaurant/Menu';
 import RestaurantCard from '@/infrastructure/components/sections/restaurant/Content';
 import ReviewsSection from '@/infrastructure/components/sections/restaurant/Reviews';
 import { useAuth } from '@/domain/context/AuthContext';
+import MapaClickCoordenadas from '@/infrastructure/components/common/map/MapaClickCoordenadas';
+import { Ubication } from '@/infrastructure/interface/map/map';
+import CustomMapaCurrent from '@/infrastructure/components/common/map/CustomMapaCurrent';
 
 
 interface Props {
@@ -31,6 +34,7 @@ const RestaurantProfile: React.FC<Props> = ({  }) => {
     const [restaurant, setRestaurant] = useState<RestaurantsType | null>(restaurantData);
     const [activeTab, setActiveTab] = useState<string>('profile');
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [coordenadas, setCoordenadas] = useState<Ubication | null>(null);
 
     useEffect(() => {
         if(restaurantData && restaurantData.id) setId(restaurantData.id);
@@ -63,9 +67,18 @@ const RestaurantProfile: React.FC<Props> = ({  }) => {
             {/* Header */}
             <header className="">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <CustomMapaCurrent
+                        ubications={
+                            restaurant.latitud && restaurant.longitud 
+                            ? { id:restaurant.id, latitud:restaurant.latitud, longitud:restaurant.longitud, nombre:restaurant.name }
+                            : null 
+                        }
+                    />
                     <div className="py-6">
                         <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Ficha: {restaurant.name}</h1>
                     </div>
+                </div>
                 </div>
             </header>
 

@@ -69,6 +69,9 @@ model Restaurants {
 
   access          String @unique
 
+  latitud               Float?
+  longitud              Float?
+
   name            String
   address         String?
   phone           String?
@@ -107,6 +110,9 @@ model Localtion {
 
   restaurantId      String      @db.ObjectId
   restaurantReference       Restaurants         @relation(fields: [restaurantId], references: [id])
+
+  latitud               Float
+  longitud              Float
 
   location  Json
 
@@ -180,8 +186,8 @@ model Comment {
   stars                   Int
   comment                 String
 
-  userLogId               String      @db.ObjectId
-  userLogReference        User        @relation(fields: [userLogId], references: [id])
+  userId                  String      @db.ObjectId
+  userReference           User        @relation(fields: [userId], references: [id])
 
   createAt                DateTime  @default(now())
   updateAt                DateTime  @updatedAt

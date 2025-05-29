@@ -5,5 +5,9 @@ export interface ComentType extends Comment {
 }
 
 export interface CommentCreate {
-    name: string
+    stars: number
+    comment: string
+    id: string
+    type?: "restaurant" | "menu"
+    userId: string
 }

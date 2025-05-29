@@ -1,8 +1,9 @@
-import { Environment, Restaurants, Type } from "@prisma/client";
+import { Environment, Localtion, Restaurants, Type } from "@prisma/client";
 
 export interface RestaurantsType extends Restaurants {
     environmentReference: Environment,
     typeReference: Type,
+    locations: Localtion[]
 }
 
 export interface RestaurantCreate {

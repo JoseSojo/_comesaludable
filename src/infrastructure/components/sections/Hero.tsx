@@ -1,11 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import constants from "@/infrastructure/constants";
+import MasterMap from '../common/map/MasterMap';
+import { useRestaurantCrud } from '@/application/hooks/useRestaurant';
+import { RestaurantsType } from '@/infrastructure/interface/restaurant.type';
+import CustomMasterMap from '../common/map/CustomMasterMap';
 
 const Hero = () => {
+
+  const restaurants = useRestaurantCrud(0,0)
+  const [ubications, setUbications] = useState<RestaurantsType[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const result = await restaurants.getAllUbications();
+      setUbications(result.response.data);
+    })()
+  }, [])
+
   return (
     <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-green-200 to-white dark:from-green-900 dark:to-gray-900">
       <div className="container mx-auto px-4 md:px-6">
@@ -34,28 +48,9 @@ const Hero = () => {
               </Link>
             </div>
           </div>
+
           <div className="md:w-1/2 relative">
-            <div className="relative rounded-lg overflow-hidden shadow-xl transform transition-transform duration-500 hover:scale-105">
-              <img 
-                src="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                alt="Healthy meal with fresh vegetables" 
-                className="w-full h-auto rounded-lg"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
-              <div className="flex items-center space-x-2">
-                <div className="bg-green-500 text-white p-2 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900">4.9/5 Calificación</p>
-                  <p className="text-sm text-gray-600">De 2,000+ reviews</p>
-                </div>
-              </div>
-            </div>
+            <CustomMasterMap ubications={ubications} zoomInicial={7} />
           </div>
         </div>
       </div>

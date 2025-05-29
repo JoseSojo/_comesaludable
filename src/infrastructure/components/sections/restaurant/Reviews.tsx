@@ -1,79 +1,67 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Card, CardContent } from '../../restaurant/Card';
-import StarRating from '../../restaurant/StarRating';
 import { Comment } from '@prisma/client';
+import StarRating from './Ratting';
+import { useCommentCrud } from '@/application/hooks/interactions/useComment';
+import { useAuth } from '@/domain/context/AuthContext';
+import { MenuType } from '@/infrastructure/interface/menu.type';
+import toast from 'react-hot-toast';
 
 interface ReviewsSectionProps {
   reviews: Comment[];
+  entity: MenuType
 }
 
-const ReviewsSection: React.FC<ReviewsSectionProps> = ({ reviews }) => {
+const ReviewsSection: React.FC<ReviewsSectionProps> = ({ reviews,entity }) => {
+  const { user } = useAuth()
   // Calculate average rating
+  const [stars, setStars] = useState(5);
+  const [content, setContent] = useState("");
   const averageRating = 10; //reviews.length > 0
-    // ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
-    // : 0;
-  
+  // ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  // : 0;
+
   // Count ratings by star level
-//   const ratingCounts = reviews.reduce(
-//     (counts, review) => {
-//       counts[review.rating] = (counts[review.rating] || 0) + 1;
-//       return counts;
-//     },
-//     {} as Record<number, number>
-//   );
-  
+  //   const ratingCounts = reviews.reduce(
+  //     (counts, review) => {
+  //       counts[review.rating] = (counts[review.rating] || 0) + 1;
+  //       return counts;
+  //     },
+  //     {} as Record<number, number>
+  //   );
+
+  const HandelSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    (async () => {
+      const adapter = useCommentCrud(0,0,{});
+      const response = await adapter.createComent({ comment:content, id:entity.id, stars, userId:user.id });
+      return toast.success(response.message);
+    })()
+
+  }
+
   return (
     <div>
       <h2 className="text-2xl font-serif font-bold text-gray-800 mb-4">Reviews</h2>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* Rating summary */}
-        <div className="lg:col-span-1">
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-center mb-4">
-                <h3 className="text-3xl font-bold text-gray-800 mb-1">
-                  {averageRating.toFixed(1)}
-                </h3>
-                <div className="flex justify-center mb-2">
-                  <StarRating rating={averageRating} size="md" />
+        <div className="lg:col-span-3 ">
+          <Card className='w-[100%] lg:w-[50%] m-auto'>
+            <CardContent className="p-6 w-full">
+              <h2 className='text-xl font-bold text-center'>Dejanos tu opinión:</h2>
+              <form className='' onSubmit={HandelSubmit}>
+                <textarea onChange={(e) => setContent(e.target.value)} className='border border-gray-300 rounded dark:border-gray-700 w-full p-2 min-h-[50px] max-h-[100px]'></textarea>
+                <div className='flex justify-end items-center gap-5'>
+                  <StarRating onChange={setStars} value={stars}  />
+                  <button type='submit' className='bg-emerald-400'>enviar</button>
                 </div>
-                <p className="text-gray-500 text-sm">
-                  Based on {reviews.length} review{reviews.length !== 1 ? 's' : ''}
-                </p>
-              </div>
-              
-              <div className="space-y-3">
-                {[5, 4, 3, 2, 1].map((rating) => {
-                  const count = 0;
-                  const percentage = reviews.length > 0
-                    ? Math.round((count / reviews.length) * 100)
-                    : 0;
-                    
-                  return (
-                    <div key={rating} className="flex items-center">
-                      <div className="flex-shrink-0 w-6 text-sm text-gray-600 font-medium">
-                        {rating}★
-                      </div>
-                      <div className="flex-1 ml-3">
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-amber-500 rounded-full" 
-                            style={{ width: `${percentage}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                      <div className="ml-3 w-12 text-xs text-right text-gray-500">
-                        {percentage}%
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              </form>
             </CardContent>
           </Card>
         </div>
-        
+
         {/* Reviews list */}
         <div className="lg:col-span-2">
           <div className="space-y-4">
@@ -111,20 +99,19 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
               </div>
             )} */}
           </div>
-          
+
           <div className="flex-1">
             <div className="flex justify-between items-start">
               <div>
                 <h4 className="font-medium text-gray-800">Nombre</h4>
                 <div className="flex items-center mt-1">
-                  <StarRating rating={review.stars} size="sm" />
                   <span className="ml-2 text-xs text-gray-500">
                     {/* {formatDate(review.date)} */}
                   </span>
                 </div>
               </div>
             </div>
-            
+
             <p className="mt-3 text-gray-600">{review.comment}</p>
           </div>
         </div>

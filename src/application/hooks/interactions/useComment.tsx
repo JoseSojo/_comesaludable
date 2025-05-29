@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Filters } from '@/infrastructure/interface/filter';
-import { ComentType } from '@/infrastructure/interface/interactions/coment.type';
+import { ComentType, CommentCreate } from '@/infrastructure/interface/interactions/coment.type';
 import { ApiCrudCommentAdapter } from '@/infrastructure/adapters/interactions/ApiCrudCommentAdapter';
 
 export function useCommentCrud(page = 1, pageSize = 10, filters: Filters = {}) {
@@ -37,7 +37,7 @@ export function useCommentCrud(page = 1, pageSize = 10, filters: Filters = {}) {
     }
   };
 
-  const createComent = async (data: any) => {
+  const createComent = async (data: CommentCreate) => {
     try {
       const newComent = await ApiCrudCommentAdapter.create(data);
       await fetchComment(page, filters);

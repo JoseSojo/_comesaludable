@@ -1,16 +1,15 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/infrastructure/lib/prisma';
-import { RestaurantsType } from '@/infrastructure/interface/restaurant.type';
+import { ComentType } from '@/infrastructure/interface/interactions/coment.type';
 
 export async function GET(_: Request, context: any) {
   const { id } = context.params;
-  const entity = await prisma.restaurants.findUnique({
+  const entity = await prisma.comment.findUnique({
     where: { id },
     include: {
-      environmentReference: true,
-      typeReference: true,
-      locations: true,
-      _count: true
+      menueReference: true,
+      restaurantReference: true,
+      userReference: true
     }
   });
 
@@ -19,20 +18,14 @@ export async function GET(_: Request, context: any) {
 }
 
 export async function PUT(req: Request, context: any) {
-  const body = await req.json() as RestaurantsType;
+  const body = await req.json() as ComentType;
   const { id } = context.params;
 
-  const updated = await prisma.restaurants.update({
+  const updated = await prisma.comment.update({
     where: { id },
     data: {
-      about: body.about,
-      name: body.name,
-      horario: body.horario,
-      address: body.address,
-      phone: body.phone,
-      website: body.website,
-      typeReference: { connect:{ id:body.typeId as string } },
-      environmentReference: { connect:{ id:body.environmentId as string } },
+      comment: body.comment,
+      stars: body.stars
     },
   });
 
@@ -41,7 +34,7 @@ export async function PUT(req: Request, context: any) {
 
 export async function DELETE(_: Request, context: any) {
   const { id } = context.params;
-  await prisma.restaurants.update({
+  await prisma.comment.update({
     where: { id },
     data: { deleteAt: new Date() }
   });

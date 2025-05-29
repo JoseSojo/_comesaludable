@@ -6,7 +6,7 @@ const ErrorMessages = {
   find: "No se encontró.",
   update: "Error al actualizar",
   delete: "Error al eliminar",
-  create: "Error al crear.",
+  create: "Comentario creado.",
 }
 const SuccessMessage = {
   paginate: "",

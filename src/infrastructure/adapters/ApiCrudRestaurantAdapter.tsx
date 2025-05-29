@@ -1,4 +1,6 @@
 import { Filters } from "../interface/filter";
+import { Ubication, UbicationCreate } from "../interface/map/map";
+import { RestaurantsType } from "../interface/restaurant.type";
 
 const BASE_URL = '/api/v1/restaurant';
 const ErrorMessages = {
@@ -7,6 +9,7 @@ const ErrorMessages = {
   update: "Error al actualizar",
   delete: "Error al eliminar",
   create: "Error al crear.",
+  location: "Error en la ubicación.",
 }
 const SuccessMessage = {
   paginate: "",
@@ -14,6 +17,7 @@ const SuccessMessage = {
   update: "Actualización exitosa.",
   delete: "Registro eliminado.",
   create: "Registro creado.",
+  location: "Ubicación exitosa.",
 }
 
 export class ApiCrudRestaurantAdapter {
@@ -23,7 +27,7 @@ export class ApiCrudRestaurantAdapter {
     return {response:await res.json(), message: null};
   }
 
-  static async getById(id: string) {
+  static async getById(id: string): Promise<{ response: RestaurantsType, message: string|null }> {
     const res = await fetch(`${BASE_URL}/${id}`);
     if (!res.ok) throw new Error(ErrorMessages.find);
     return {response:await res.json(), message: null};
@@ -51,6 +55,25 @@ export class ApiCrudRestaurantAdapter {
     });
     if (!res.ok) throw new Error(ErrorMessages.update);
     return {response:res.json(), message: SuccessMessage.update};
+  }
+
+  static async location(id: string, data: UbicationCreate) {
+    const res = await fetch(`${BASE_URL}/location/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({...data, id}),
+    });
+    if (!res.ok) throw new Error(ErrorMessages.location);
+    return {response:res.json(), message: SuccessMessage.location};
+  }
+
+  static async getLocation() {
+    const res = await fetch(`${BASE_URL}/location`);
+    if (!res.ok) throw new Error(ErrorMessages.location);
+    const json = await res.json() as { data:RestaurantsType[], total: number }
+    return {response:json, message: SuccessMessage.location};
   }
 
   static async delete(id: string) {

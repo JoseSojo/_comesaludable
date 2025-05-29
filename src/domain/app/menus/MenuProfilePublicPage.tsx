@@ -78,7 +78,7 @@ const MenuProfilePublicPage: React.FC<Props> = ({ id }) => {
                         )}
 
                         {activeTab === 'reviews' && (
-                            <ReviewsSection reviews={[]} />
+                            <ReviewsSection reviews={[]} entity={menu} />
                         )}
                     </div>
                 </main>

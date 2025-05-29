@@ -30,6 +30,7 @@ export async function GET(req: Request) {
     include: {
       environmentReference: true,
       typeReference: true,
+      locations: true,
       _count: true
     }
   });
@@ -53,6 +54,8 @@ export async function POST(req: Request) {
       website: body.website,
       horario: body.horario,
       tag: [],
+      longitud: null,
+      latitud: null,
       environmentReference: { connect:{ id:body.environmentId } },
       typeReference: { connect:{ id:body.typeId } },
       deleteAt: null,
