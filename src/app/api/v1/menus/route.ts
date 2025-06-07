@@ -11,7 +11,7 @@ export async function GET(req: Request) {
   let type = searchParams.get('type') || '';
   let param = searchParams.get('param') || '';
   let restaurant = searchParams.get('restaurant') || '';
-  let landing = searchParams.get('landing') || '';
+  let landing = searchParams.get('landing') || '' as any;
 
   if(param === undefined || param === "undefined") param = "";
   if(type === undefined || type === "undefined") type = "";
@@ -24,7 +24,7 @@ export async function GET(req: Request) {
   if(type) where.push({ typeId: type });
   if(param) where.push({ name: {contains:param} });
   if(restaurant) where.push({ restauranteReference: {id:restaurant} });
-  if(landing) where.push({ aproved: true });
+  if(landing !== `false`) where.push({ aproved: true });
   where.push({ deleteAt: null });
 
 
@@ -39,12 +39,6 @@ export async function GET(req: Request) {
       restauranteReference: true
     }
   });
-
-  console.log('######################');
-  menus.forEach(async (item) => {
-    console.log(item);
-    // await prisma.menus.delete({ where:{id:item.id} })
-  })
 
   const total = await prisma.menus.count({where: { AND: where }});
 
