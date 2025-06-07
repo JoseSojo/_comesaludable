@@ -1,4 +1,3 @@
-import { Ubication } from '@/infrastructure/interface/map/map';
 import { RestaurantsType } from '@/infrastructure/interface/restaurant.type';
 import dynamic from 'next/dynamic';
 

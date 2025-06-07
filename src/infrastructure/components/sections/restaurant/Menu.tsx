@@ -84,7 +84,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ restaurantId, update }) => {
                         <div className='relative'>
                             <SearchSelect options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
                         </div>
-                        {update && <ButtonUiRestaurant onClick={() => setCreateModal(true)} size='sm' className='bg-emerald-400 hover:bg-emerald-600'>Crear</ButtonUiRestaurant>}
+                        <ButtonUiRestaurant onClick={() => setCreateModal(true)} size='sm' className='bg-emerald-400 hover:bg-emerald-600'>Crear</ButtonUiRestaurant>
                     </div>
                 </div>
 

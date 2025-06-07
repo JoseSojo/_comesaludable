@@ -16,11 +16,13 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  const { restaurant, loadding } = useAuth();
+  const { auth,restaurant, loadding, restaurantData } = useAuth();
 
   if (loadding) return <FullScreenLoader />
 
-  if (!restaurant) return redirect("/")
+  if (!auth) return redirect("/");
+  if (!restaurant) return redirect("/");
+  if (!restaurantData) return redirect("/");
 
   return (
     <>

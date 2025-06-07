@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Search, Loader2, Eye, DeleteIcon } from 'lucide-react';
+import { Search, Loader2, Eye, DeleteIcon, Edit } from 'lucide-react';
 import { useMenusCrud } from '@/application/hooks/useMenus';
 import SearchSelect from '@/infrastructure/components/common/SelectInput';
 import { useCategoryCrud } from '@/application/hooks/core/useCategory';
@@ -9,16 +9,25 @@ import { useTypeCrud } from '@/application/hooks/core/useType';
 import PaginateSection from '@/infrastructure/components/common/PaginateSection';
 import Link from 'next/link';
 import { useAuth } from '@/domain/context/AuthContext';
+import ButtonUiRestaurant from '@/infrastructure/components/restaurant/ButtonUiRestaurant';
+import Modal from '@/infrastructure/components/common/Modal';
+import MenuForm from '@/infrastructure/components/form/menu/MenuForm';
+import { RestaurantsType } from '@/infrastructure/interface/restaurant.type';
+import { MenuType } from '@/infrastructure/interface/menu.type';
 
 
 export default function Menus() {
     const [page, setPage] = useState(1)
-    const { restaurantData } = useAuth();
-    const [filter, setFilter] = useState<{ category?: string, type?: string, param?: string,restaurant:string }>({ restaurant:restaurantData ? restaurantData.id : `` });
+    const auth = useAuth();
+    const restaurantData = auth.restaurantData as RestaurantsType;
+    const [filter, setFilter] = useState<{ category?: string, type?: string, param?: string, restaurant: string }>({ restaurant: restaurantData ? restaurantData.id : `` });
     const entity = useMenusCrud(page, 10, filter);
     const [searchInput, setSearchInput] = useState('');
     const category = useCategoryCrud();
     const type = useTypeCrud();
+    const [createModal, setCreateModal] = useState(false);
+    const [updateModal, setUpdateModal] = useState(false);
+    const [updateData, setUpdateData] = useState<MenuType | null>(null);
 
     const HandleChangeSelectFilter = (selected: any, name: string) => {
         if (name === "category") setFilter({ ...filter, category: selected.id });
@@ -36,6 +45,16 @@ export default function Menus() {
 
     return (
         <>
+            {
+                createModal && <Modal isOpen={createModal ? true : false} onClose={() => setCreateModal(false)}>
+                    <MenuForm initialData={null} restaurantId={restaurantData.id} end={() => { setCreateModal(false) }} />
+                </Modal>
+            }
+            {
+                updateModal && <Modal isOpen={updateModal ? true : false} onClose={() => setUpdateModal(false)}>
+                    <MenuForm typeForm='update' initialData={updateData} restaurantId={restaurantData.id} end={() => { setUpdateModal(false) }} />
+                </Modal>
+            }
             <div className="space-y-6">
                 <div className="flex justify-between items-center">
                     <div>
@@ -66,6 +85,8 @@ export default function Menus() {
                         <div className='relative'>
                             <SearchSelect options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
                         </div>
+                        <ButtonUiRestaurant onClick={() => setCreateModal(true)} size='sm' className='bg-emerald-400 hover:bg-emerald-600'>Crear</ButtonUiRestaurant>
+
                     </div>
                 </div>
 
@@ -78,6 +99,7 @@ export default function Menus() {
                                 <th className="py-3 px-4 text-left font-medium">Restaurante</th>
                                 <th className="py-3 px-4 text-left font-medium">Categoría</th>
                                 <th className="py-3 px-4 text-left font-medium">Tipo</th>
+                                <th className="py-3 px-4 text-left font-medium">Aprobado</th>
                                 <th className="py-3 px-4 text-left font-medium">Costo</th>
                                 <th className="py-3 px-4 text-right font-medium"></th>
                             </tr>
@@ -97,6 +119,13 @@ export default function Menus() {
                                             <td className="py-3 px-4">{item.restauranteReference.name}</td>
                                             <td className="py-3 px-4">{item.categoryReference.name}</td>
                                             <td className="py-3 px-4">{item.typeReference.name}</td>
+                                            <td className="py-3 px-4">
+                                                {
+                                                    item.aproved
+                                                    ? <span className='px-4 py-1 text-xs font-black bg-emerald-500 text-white rounded-[20px]'>si</span>
+                                                    : <span className='px-4 py-1 text-xs font-black bg-gray-300 rounded-[20px]'>no</span>
+                                                }
+                                            </td>
                                             <td className="py-3 px-4">{item.price} $</td>
                                             <td className="py-3 px-4 text-right">
                                                 <Link href={`/restaurant/menus/${item.id}`}>
@@ -104,6 +133,14 @@ export default function Menus() {
                                                         <Eye />
                                                     </button>
                                                 </Link>
+                                                <button
+                                                    onClick={() => {
+                                                        setUpdateData(item);
+                                                        setUpdateModal(true);
+                                                    }}
+                                                    className="px-2 mx-1 rounded text-white bg-amber-600 hover:bg-amber-800 dark:bg-amber-400 dark:hover:bg-amber-300 font-medium">
+                                                    <Edit />
+                                                </button>
                                             </td>
                                         </tr>
 
