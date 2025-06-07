@@ -8,6 +8,7 @@ import PasswordForm from '@/infrastructure/components/profile/PasswordForm';
 import ProfileForm from '@/infrastructure/components/profile/ProfileForm';
 import ProfileTabs from '@/infrastructure/components/profile/ProfileTabs';
 import UserAvatar from '@/infrastructure/components/profile/UserAvatar';
+import UserProfile from '@/infrastructure/components/sections/Profile';
 import Header from '@/infrastructure/layout/Header';
 import React, { useEffect, useState } from 'react';
 
@@ -25,12 +26,15 @@ const UserProfileMain = ({ }) => {
     return loadding ? <FullScreenLoader /> : currentUser && (
         <>
             <Header />
-            <div className="max-w-4xl mx-auto p-4 md:p-6 mt-5">
+
+            <UserProfile />
+
+            {/* <div className="max-w-4xl mx-auto p-4 md:p-6 mt-5">
                 <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
-                    {/* <UserAvatar src={currentUser.avatar} alt={currentUser.name} /> */}
+                    {/* <UserAvatar src={currentUser.avatar} alt={currentUser.name} /> 
                     <div>
-                        {/* <h1 className="text-2xl font-bold text-gray-900">{currentUser.name}</h1> */}
-                        {/* <p className="text-gray-600">{currentUser.email}</p> */}
+                        {/* <h1 className="text-2xl font-bold text-gray-900">{currentUser.name}</h1> 
+                        {/* <p className="text-gray-600">{currentUser.email}</p> 
                     </div>
                 </div>
 
@@ -47,13 +51,13 @@ const UserProfileMain = ({ }) => {
 
                     {/* {activeTab === 'comments' && (
                     <CommentsList comments={currentUser.comments} />
-                )} */}
+                )} 
 
                     {/* {activeTab === 'favorites' && (
                     <FavoritesList favorites={currentUser.favorites} />
-                )} */}
+                )} 
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };

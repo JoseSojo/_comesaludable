@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Filters } from '@/infrastructure/interface/filter';
 import { ComentType, CommentCreate } from '@/infrastructure/interface/interactions/coment.type';
 import { ApiCrudCommentAdapter } from '@/infrastructure/adapters/interactions/ApiCrudCommentAdapter';
@@ -11,14 +11,12 @@ export function useCommentCrud(page = 1, pageSize = 10, filters: Filters = {}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchComment(page, filters);
-  }, [page, pageSize, JSON.stringify(filters)]);
-
-  const fetchComment = async (page: number, filtersOverride: Filters = {}) => {
+  // Memoize the fetch function to prevent unnecessary recreations
+  const fetchComment = async (pageToFetch: number, filtersOverride: Filters = {}) => {
+    if(page === 0) return;
     setLoading(true);
     try {
-      const res = await ApiCrudCommentAdapter.getAll(page, pageSize, filtersOverride);
+      const res = await ApiCrudCommentAdapter.getAll(pageToFetch, pageSize, filtersOverride);
       setList(res.response.data);
       setTotal(res.response.total);
     } catch (err: any) {
@@ -26,7 +24,11 @@ export function useCommentCrud(page = 1, pageSize = 10, filters: Filters = {}) {
     } finally {
       setLoading(false);
     }
-  };
+  } // Only recreate if pageSize changes
+
+  useEffect(() => {
+    fetchComment(page, filters);
+  }, [page, pageSize, JSON.stringify(filters)]); // Proper dependencies
 
   const getComentById = async (id: string) => {
     try {
@@ -40,7 +42,7 @@ export function useCommentCrud(page = 1, pageSize = 10, filters: Filters = {}) {
   const createComent = async (data: CommentCreate) => {
     try {
       const newComent = await ApiCrudCommentAdapter.create(data);
-      await fetchComment(page, filters);
+      // await fetchComment(page, filters); // Uses current page and filters
       return newComent;
     } catch (err: any) {
       setError(err.message);
@@ -74,7 +76,7 @@ export function useCommentCrud(page = 1, pageSize = 10, filters: Filters = {}) {
     total,
     loading,
     error,
-    refresh: (page:number, filters:Filters = {}) => fetchComment(page, filters),
+    refresh: fetchComment, // Simplified since it already accepts page and filters
     getComentById,
     createComent,
     updateComent,

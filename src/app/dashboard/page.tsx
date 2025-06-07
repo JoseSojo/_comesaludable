@@ -21,7 +21,7 @@ import { useUserCrud } from '@/application/hooks/useUser';
 const Dashboard: React.FC = () => {
   const menus = useMenusCrud(0, 0);
   const restaurant = useRestaurantCrud(0, 0);
-  const comment = useCommentCrud(0, 0);
+  const comment = useCommentCrud(1, 0,{});
   const category = useCategoryCrud(1,50);
   const type = useTypeCrud(1,50);
   const user = useUserCrud(0,0);

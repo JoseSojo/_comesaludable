@@ -177,6 +177,8 @@ model Visits {
 model Comment {
   id                      String @id @default(auto()) @map("_id") @db.ObjectId
   
+  for                     String
+
   restaurantId            String?             @db.ObjectId
   restaurantReference    Restaurants?        @relation(fields: [restaurantId], references: [id])
 

@@ -35,7 +35,7 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ reviews,entity }) => {
 
     (async () => {
       const adapter = useCommentCrud(0,0,{});
-      const response = await adapter.createComent({ comment:content, id:entity.id, stars, userId:user.id });
+      const response = await adapter.createComent({ comment:content, id:entity.id, stars, userId:user.id, for:'RESTAURANTE' });
       return toast.success(response.message);
     })()
 

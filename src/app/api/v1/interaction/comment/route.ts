@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/infrastructure/lib/prisma';
 import { Prisma } from '@prisma/client';
-import { RestaurantCreate } from '@/infrastructure/interface/restaurant.type';
 import { CommentCreate } from '@/infrastructure/interface/interactions/coment.type';
 
 export async function GET(req: Request) {
@@ -45,11 +44,12 @@ export async function POST(req: Request) {
     comment: body.comment,
     stars: Number(body.stars),
     deleteAt: null,
+    for: body.for,
     userReference: { connect: {id: body.userId} }
   } 
 
-  if(body.type === "restaurant") customData.restaurantReference = { connect: { id: body.id } }
-  else customData.menueReference = { connect: { id: body.id } }
+  if(body.for === "RESTAURANTE") customData.restaurantReference = { connect: { id: body.id } }
+  else if(body.for === "MENU") customData.menueReference = { connect: { id: body.id } }
 
   const entity = await prisma.comment.create({
     data: customData

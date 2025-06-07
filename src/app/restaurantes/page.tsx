@@ -7,6 +7,7 @@ import FullScreenLoader from "@/infrastructure/components/common/Loadding";
 import PaginateSection from "@/infrastructure/components/common/PaginateSection";
 import SearchSelect from "@/infrastructure/components/common/SelectInput";
 import RestaurantPublicCard from "@/infrastructure/components/public/RestaurantPublicCard";
+import RestaurantSection from "@/infrastructure/components/sections/RestaurantSection";
 import Footer from "@/infrastructure/layout/Footer";
 import Header from "@/infrastructure/layout/Header";
 import { Search } from "lucide-react";
@@ -38,7 +39,9 @@ export default function MenuSearchPage() {
         <>
             <Header />
 
-            <main className="min-h-screen top-20 relative grid grid-cols-[0.25fr_1fr_0.25fr] mb-10">
+            <RestaurantSection />
+
+            {/* <main className="min-h-screen top-20 relative grid grid-cols-[0.25fr_1fr_0.25fr] mb-10">
                 <section></section>
                 <div className="grid place-items-center gap-5 lg:px-10 px-5 py-10">
                     <h2 className="text-4xl font-black">Restaurantes</h2>
@@ -83,7 +86,7 @@ export default function MenuSearchPage() {
                     </div>
                 </div>
                 <section></section>
-            </main>
+            </main> */}
             <Footer />
         </>
     )
