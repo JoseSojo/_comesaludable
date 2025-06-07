@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Search, Plus, Filter, ChevronDown, Loader2, Eye, DeleteIcon } from 'lucide-react';
+import { Search, Plus, Filter, ChevronDown, Loader2, Eye, DeleteIcon, Accessibility, Aperture, Check } from 'lucide-react';
 import { useMenusCrud } from '@/application/hooks/useMenus';
 import SearchSelect from '@/infrastructure/components/common/SelectInput';
 import { useCategoryCrud } from '@/application/hooks/core/useCategory';
@@ -10,6 +10,7 @@ import PaginateSection from '@/infrastructure/components/common/PaginateSection'
 import Link from 'next/link';
 import Modal from '@/infrastructure/components/common/Modal';
 import DeleteAlert from '@/infrastructure/components/common/DeleteAlert';
+import AprovedAlert from '@/infrastructure/components/common/AprovedAlert';
 
 
 export default function Menus() {
@@ -17,6 +18,7 @@ export default function Menus() {
     const [filter, setFilter] = useState<{ category?: string, type?: string, param?: string }>({});
     const entity = useMenusCrud(page, 10, filter);
     const [selectIdDelete, setSelectIdDelete] = useState<string | null>(null);
+    const [selectIdAproved, setSelectIdAproved] = useState<string | null>(null);
     const [searchInput, setSearchInput] = useState('');
     const category = useCategoryCrud();
     const type = useTypeCrud();
@@ -40,6 +42,11 @@ export default function Menus() {
             {
                 selectIdDelete && <Modal isOpen={selectIdDelete ? true : false} onClose={() => setSelectIdDelete(null)}>
                     <DeleteAlert deleteFn={() => { entity.deleteMenu(selectIdDelete); setSelectIdDelete(null) }} />
+                </Modal>
+            }
+            {
+                selectIdAproved && <Modal isOpen={selectIdAproved ? true : false} onClose={() => setSelectIdAproved(null)}>
+                    <AprovedAlert AprovedFn={() => { entity.aprovedMenu(selectIdAproved) }} />
                 </Modal>
             }
             <div className="space-y-6">
@@ -84,6 +91,7 @@ export default function Menus() {
                                 <th className="py-3 px-4 text-left font-medium">Restaurante</th>
                                 <th className="py-3 px-4 text-left font-medium">Categoría</th>
                                 <th className="py-3 px-4 text-left font-medium">Tipo</th>
+                                <th className="py-3 px-4 text-left font-medium">Aprobado</th>
                                 <th className="py-3 px-4 text-left font-medium">Costo</th>
                                 <th className="py-3 px-4 text-right font-medium"></th>
                             </tr>
@@ -103,6 +111,13 @@ export default function Menus() {
                                             <td className="py-3 px-4">{item.restauranteReference.name}</td>
                                             <td className="py-3 px-4">{item.categoryReference.name}</td>
                                             <td className="py-3 px-4">{item.typeReference.name}</td>
+                                            <td className="py-3 px-4">
+                                                {
+                                                    item.aproved
+                                                    ? <span className='badge badge-xs badge-success'>si</span>
+                                                    : <span className='badge badge-xs'>no</span>
+                                                }
+                                            </td>
                                             <td className="py-3 px-4">{item.price} $</td>
                                             <td className="py-3 px-4 text-right">
                                                 <Link href={`/dashboard/menus/${item.id}`}>
@@ -112,6 +127,9 @@ export default function Menus() {
                                                 </Link>
                                                 <button onClick={() => setSelectIdDelete(item.id)} className="px-2 mx-1 rounded text-white bg-red-600 hover:bg-red-800 dark:bg-red-700 dark:hover:bg-red-600 font-medium">
                                                     <DeleteIcon />
+                                                </button>
+                                                <button onClick={() => setSelectIdAproved(item.id)} className="px-2 mx-1 rounded text-white bg-green-600 hover:bg-green-800 dark:bg-green-700 dark:hover:bg-green-600 font-medium">
+                                                    <Check />
                                                 </button>
                                             </td>
                                         </tr>

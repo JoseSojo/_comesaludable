@@ -18,7 +18,7 @@ const SuccessMessage = {
 
 export class ApiCrudMenuAdapter {
   static async getAll(page: number = 1, pageSize: number = 10, filter: Filters) {
-    const res = await fetch(`${BASE_URL}?page=${page}&pageSize=${pageSize}&category=${filter && filter.category ? filter.category : ""}&type=${filter && filter.type ? filter.type : ""}&param=${filter && filter.param ? filter.param : ""}&restaurant=${filter && filter.restaurant ? filter.restaurant : ""}`);
+    const res = await fetch(`${BASE_URL}?landing=${filter.landing ? true : false}&page=${page}&pageSize=${pageSize}&category=${filter && filter.category ? filter.category : ""}&type=${filter && filter.type ? filter.type : ""}&param=${filter && filter.param ? filter.param : ""}&restaurant=${filter && filter.restaurant ? filter.restaurant : ""}`);
     if (!res.ok) throw new Error(ErrorMessages.paginate);
     return {response:await res.json(), message: null};
   }
@@ -48,6 +48,18 @@ export class ApiCrudMenuAdapter {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error(ErrorMessages.update);
+    return {response:res.json(), message: SuccessMessage.update};
+  }
+
+  static async aproved(id: string) {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ public:true }),
     });
     if (!res.ok) throw new Error(ErrorMessages.update);
     return {response:res.json(), message: SuccessMessage.update};

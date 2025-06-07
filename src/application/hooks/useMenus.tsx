@@ -5,7 +5,7 @@ import { ApiCrudMenuAdapter } from '@/infrastructure/adapters/ApiCrudMenuAdapter
 import { MenuType } from '@/infrastructure/interface/menu.type';
 import { Filters } from '@/infrastructure/interface/filter';
 
-export function useMenusCrud(page = 1, pageSize = 10, filters: Filters = {}) {
+export function useMenusCrud(page = 1, pageSize = 10, filters: Filters = {  }) {
   const [list, setList] = useState<MenuType[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -69,6 +69,17 @@ export function useMenusCrud(page = 1, pageSize = 10, filters: Filters = {}) {
     }
   };
 
+  const aprovedMenu = async (id: string) => {
+    try {
+      const updatedMenu = await ApiCrudMenuAdapter.aproved(id);
+      await fetchMenus(page, filters);
+      return updatedMenu;
+    } catch (err: any) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
   return {
     list,
     total,
@@ -77,6 +88,7 @@ export function useMenusCrud(page = 1, pageSize = 10, filters: Filters = {}) {
     refresh: (page:number, filters:Filters = {}) => fetchMenus(page, filters),
     getMenuById,
     createMenu,
+    aprovedMenu,
     updateMenu,
     deleteMenu,
   };

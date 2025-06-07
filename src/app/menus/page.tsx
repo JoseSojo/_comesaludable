@@ -7,7 +7,6 @@ import { useAuth } from "@/domain/context/AuthContext";
 import PaginateSection from "@/infrastructure/components/common/PaginateSection";
 import SearchSelect from "@/infrastructure/components/common/SelectInput";
 import MenuPublicCard from "@/infrastructure/components/public/MenuPublicCard";
-import Button from "@/infrastructure/components/ui/Button";
 import Footer from "@/infrastructure/layout/Footer";
 import Header from "@/infrastructure/layout/Header";
 import { Search } from "lucide-react";
@@ -15,7 +14,7 @@ import { useEffect, useState } from "react";
 
 export default function MenuSearchPage() {
     const [page, setPage] = useState(1)
-    const [filter, setFilter] = useState<{ category?: string, type?: string, param?: string }>({});
+    const [filter, setFilter] = useState<{ category?: string, type?: string, param?: string, landing: true }>({ landing: true });
     const entity = useMenusCrud(page, 30, filter);
     const { auth } = useAuth();
     const [searchInput, setSearchInput] = useState('');

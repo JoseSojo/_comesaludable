@@ -5,4 +5,5 @@ export type Filters = {
   environment?: string;   // fecha máxima
   param?: string;   // fecha máxima
   restaurant?: string; // Restaurante (para menus, comentarios y eso)
+  landing?: boolean
 };

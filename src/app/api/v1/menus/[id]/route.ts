@@ -20,6 +20,22 @@ export async function PUT(req: Request, context: any) {
   const body = await req.json();
   const { id } = context.params;
 
+  console.log(body);
+
+
+  if (body.public) {
+    const find = await prisma.menus.findFirst({ where:{ id } });
+    if(!find) return {}
+    const updated = await prisma.menus.update({
+      where: { id: id },
+      data: {
+        aproved: !find.aproved
+      },
+    });
+
+    return NextResponse.json(updated);
+  }
+
   const updated = await prisma.menus.update({
     where: { id: id },
     data: {
@@ -31,8 +47,8 @@ export async function PUT(req: Request, context: any) {
       preparation: body.preparation,
       price: Number(body.price),
       tags: body.tags.split(","),
-      categoryReference: { connect:{id:body.categoryId} },
-      typeReference: { connect:{id:body.typeId} },
+      categoryReference: { connect: { id: body.categoryId } },
+      typeReference: { connect: { id: body.typeId } },
     },
   });
 
