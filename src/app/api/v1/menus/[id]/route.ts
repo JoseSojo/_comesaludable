@@ -22,7 +22,7 @@ export async function PUT(req: Request, context: any) {
 
   if (body.public) {
     const find = await prisma.menus.findFirst({ where:{ id } });
-    if(!find) return {}
+    if(!find) return NextResponse.json({ error:true });
     const updated = await prisma.menus.update({
       where: { id: id },
       data: {
