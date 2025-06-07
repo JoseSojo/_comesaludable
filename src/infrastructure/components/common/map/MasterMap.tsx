@@ -81,6 +81,10 @@ const MasterMap: React.FC<Props> = ({ restaurants, zoomInicial = 6 }) => {
                                 restaurante
                                 <strong>{restaurant.name}</strong>
                             </div>
+                            <div className="flex items-center gap-2 my-2">
+                                Horario
+                                <strong className='text-xs'>{restaurant.horario}</strong>
+                            </div>
                             <p className='flex gap-3'>
                                 <span
                                     className='rounded-[20px] bg-gray-300 dark:bg-gray-900 dark:text-gray-500 text-xs px-3 py-1 font-bold text-gray-600'

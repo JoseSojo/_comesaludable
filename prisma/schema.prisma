@@ -206,6 +206,8 @@ model Menus {
   preparation             String
   tags                    Json
 
+  public                  Boolean   @default(false)
+
   restaurantId            String        @db.ObjectId
   restauranteReference    Restaurants         @relation(fields: [restaurantId], references: [id])
 
