@@ -11,12 +11,9 @@ import { useRestaurantCrud } from '@/application/hooks/useRestaurant';
 import { RestaurantsType } from '@/infrastructure/interface/restaurant.type';
 import Tabs from '@/infrastructure/components/restaurant/Tabs';
 import RestaurantForm from '@/infrastructure/components/form/restaurant/RestaurantForm';
-import GallerySection from '@/infrastructure/components/sections/restaurant/Gallery';
 import MenuSection from '@/infrastructure/components/sections/restaurant/Menu';
 import RestaurantCard from '@/infrastructure/components/sections/restaurant/Content';
-import ReviewsSection from '@/infrastructure/components/sections/restaurant/Reviews';
 import { useAuth } from '@/domain/context/AuthContext';
-import MapaClickCoordenadas from '@/infrastructure/components/common/map/MapaClickCoordenadas';
 import { Ubication } from '@/infrastructure/interface/map/map';
 import CustomMapaCurrent from '@/infrastructure/components/common/map/CustomMapaCurrent';
 

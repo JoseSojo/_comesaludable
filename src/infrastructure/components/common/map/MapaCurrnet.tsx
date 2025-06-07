@@ -1,5 +1,6 @@
 "use client"
 
+
 // src/components/MapaClickCoordenadas.tsx
 import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
@@ -15,17 +16,6 @@ const DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
-
-// Componente que escucha los clics en el mapa
-const MapaClickHandler = ({ onMapClick }: { onMapClick: (lat: number, lng: number) => void }) => {
-    useMapEvents({
-        click: (e) => {
-            const { lat, lng } = e.latlng;
-            onMapClick(lat, lng);
-        },
-    });
-    return null;
-};
 
 interface Props {
     location: Ubication | null;

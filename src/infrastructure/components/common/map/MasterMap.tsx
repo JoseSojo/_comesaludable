@@ -4,7 +4,6 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L, { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Ubication } from '@/infrastructure/interface/map/map';
 import { RestaurantsType } from '@/infrastructure/interface/restaurant.type';
 
 const DefaultIcon = L.icon({
