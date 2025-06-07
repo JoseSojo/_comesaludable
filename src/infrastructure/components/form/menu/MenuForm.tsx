@@ -66,7 +66,6 @@ export default function MenuForm({ restaurantId, initialData, end, typeForm }: P
                         preparation: data.name,
                         typeId: data.typeId as string
                     }
-                    console.log(custom);
                     const customId = initialData as any;
                     const result = await instance.updateMenu(customId.id, custom);
                     toast.success(result.message);

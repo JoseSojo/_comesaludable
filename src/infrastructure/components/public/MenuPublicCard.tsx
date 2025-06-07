@@ -13,10 +13,6 @@ export default function MenuPublicCard({ entity, session }: Props) {
 
     const createDate = new Date(entity.createAt);
 
-    console.log(entity.allergens);
-    console.log(entity.tags);
-    console.log(entity.ingredients);
-
     return (
         <div className="p-2 shadow-lg rounded-lg w-xl min-w-lg max-w-xl bg-white dark:bg-gray-900">
             <header className="pb-1 flex justify-between gap-5 items-center">

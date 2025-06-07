@@ -43,7 +43,6 @@ const MapaClickCoordenadas: React.FC<Props> = ({ onCoordenadasClick, location, s
         if (onCoordenadasClick) {
             onCoordenadasClick(lat, lng); // Enviar coordenadas al componente padre si es necesario
         }
-        console.log('Coordenadas:', lat, lng); // Opcional: log en consola
     };
 
     return (

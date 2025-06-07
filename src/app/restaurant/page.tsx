@@ -54,7 +54,6 @@ const RestaurantProfile: React.FC<Props> = ({  }) => {
         if(!id) return;
         (async () => {
             const result = await restaurantCrud.getRestaurantById(id);
-            console.log(result.response);
             setRestaurant(result.response);
         })()
     }, [])

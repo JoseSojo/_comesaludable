@@ -20,7 +20,6 @@ export default function TypeFicha ({ id, close }: Props) {
         (async () => {
             const restul = await getTypeById(id);
             setEntity(restul.response);
-            console.log(restul);
         })()
     }, []);
 

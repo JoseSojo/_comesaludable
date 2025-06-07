@@ -20,7 +20,6 @@ export default function CategoryFicha ({ id, close }: Props) {
         (async () => {
             const restul = await getCategoryById(id);
             setEntity(restul.response);
-            console.log(restul);
         })()
     }, []);
 

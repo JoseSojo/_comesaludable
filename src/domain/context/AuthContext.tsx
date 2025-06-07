@@ -56,7 +56,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [restaurantData, setRestaurantData] = useState<RestaurantsType | null>(null);
 
   const LoginUser = async (email: string, password: string) => {
-    console.log("# # # # # #")
     const res = await signIn('credentials', {
       redirect: false,
       email,
@@ -65,7 +64,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (res?.ok) {
       setAuth(true);
-      console.log(res);
       if (res.url?.includes("admin")) setAdmin(true);
       return { redirect: "/", message: "Inicio Exitoso" };
     }
@@ -82,7 +80,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setRestaurant(true);
       setAuth(true);
       const response = await getSession();
-      console.log(response);
       if (response) {
         const user = response.user as any;
         setRestaurant(user.access ? true : false);
@@ -102,7 +99,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const user = response.user as User;
         const rest = user as any;
 
-        console.log(rest)
         if (rest.access) {
           const entity = rest as RestaurantsType;
           setRestaurant(entity.access ? true : false);

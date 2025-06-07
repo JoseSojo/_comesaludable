@@ -47,7 +47,6 @@ const RestaurantPublicProfile: React.FC<Props> = ({ id }) => {
     useEffect(() => {
         (async () => {
             const result = await restaurantCrud.getRestaurantById(id);
-            console.log(result.response);
             setRestaurant(result.response);
         })()
     }, [])

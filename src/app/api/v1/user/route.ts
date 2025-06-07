@@ -42,8 +42,6 @@ export async function POST(req: Request) {
 
   const hash = await hashPassword(body.password)
 
-  console.log(body);
-
   const entity = await prisma.user.create({
     data: {
       acceptEmail: body.acceptEmail,

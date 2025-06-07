@@ -20,7 +20,6 @@ export default function EnvironmentFicha ({ id, close }: Props) {
         (async () => {
             const restul = await getEnvironmentById(id);
             setEntity(restul.response);
-            console.log(restul);
         })()
     }, []);
 

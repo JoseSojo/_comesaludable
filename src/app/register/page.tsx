@@ -82,7 +82,6 @@ const Register = () => {
       user.createUser({email,lastname,name,password,age,acceptEmail:"si"})
         .then(() => router.push("/"))
         .catch((err) => {
-          console.log(err);
           toast.error("Error al crear usuario");
         })
       ;

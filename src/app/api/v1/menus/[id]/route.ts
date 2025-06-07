@@ -20,9 +20,6 @@ export async function PUT(req: Request, context: any) {
   const body = await req.json();
   const { id } = context.params;
 
-  console.log(body);
-
-
   if (body.public) {
     const find = await prisma.menus.findFirst({ where:{ id } });
     if(!find) return {}

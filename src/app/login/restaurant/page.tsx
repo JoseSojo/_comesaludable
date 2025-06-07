@@ -68,8 +68,6 @@ const RestaurantLogin = () => {
     }
 
     (async () => {
-      alert(completeCode);
-      alert(`completeCode, 2`);
       await login.restaurant(completeCode);
       redirect('/');
     })()
