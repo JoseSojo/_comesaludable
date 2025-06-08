@@ -1,4 +1,5 @@
 import { Category, Menus, Restaurants, Type } from "@prisma/client";
+import { ImageType } from "./core/file.type";
 
 export interface MenuType extends Menus {
     allergens: string[],
@@ -6,7 +7,8 @@ export interface MenuType extends Menus {
     tags: string[],
     categoryReference: Category,
     typeReference: Type,
-    restauranteReference: Restaurants
+    restauranteReference: Restaurants,
+    photos: ImageType[]
 }
 
 export interface MenuCreate {

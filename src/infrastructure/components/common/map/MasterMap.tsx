@@ -38,18 +38,18 @@ const MasterMap: React.FC<Props> = ({ restaurants, zoomInicial = 6 }) => {
     const [posicionActual, setPosicionActual] = React.useState<[number, number] | null>(null);
 
     // Obtener ubicación actual del usuario
-    React.useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    setPosicionActual([pos.coords.latitude, pos.coords.longitude]);
-                },
-                (err) => {
-                    console.error("Error al obtener ubicación:", err);
-                }
-            );
-        }
-    }, []);
+    // React.useEffect(() => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (pos) => {
+    //                 setPosicionActual([pos.coords.latitude, pos.coords.longitude]);
+    //             },
+    //             (err) => {
+    //                 console.error("Error al obtener ubicación:", err);
+    //             }
+    //         );
+    //     }
+    // }, []);
 
     // Centro del mapa: primera ubicación o posición actual (si existe)
     const centro: LatLngExpression = posicionActual || [9.5379, -67.3650]; // Venezuela por defecto

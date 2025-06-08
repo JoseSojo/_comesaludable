@@ -57,6 +57,7 @@ model User  {
   // # REFERENCE FIELD
   visit                   Visits[]
   comment                 Comment[]
+  photo                   Photos[]
   //#
 
   createAt                DateTime  @default(now())
@@ -94,6 +95,7 @@ model Restaurants {
   analytic        Analytic[]
   visit           Visits[]
   comment         Comment[]
+  photos          Photos[]
   // #
 
   // # LOCATIONS
@@ -125,9 +127,16 @@ model Photos {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
 
   photoId   String    @unique @db.ObjectId
-  file      CoreFiles @relation(fields: [photoId], references: [id])
+  photoReference      CoreFiles @relation(fields: [photoId], references: [id])
 
-  about     String?
+  menuId              String?        @db.ObjectId
+  menus               Menus?         @relation(fields: [menuId], references: [id])
+
+  restaurantId        String?        @db.ObjectId
+  restaurant          Restaurants?   @relation(fields: [restaurantId], references: [id])
+
+  userId              String?        @db.ObjectId
+  userReference       User?         @relation(fields: [userId], references: [id])
 
   createAt  DateTime  @default(now())
   updateAt  DateTime  @updatedAt
@@ -217,6 +226,7 @@ model Menus {
   analytic        Analytic[]
   visit           Visits[]
   comment         Comment[]
+  photos          Photos[]
   // #
 
   categoryId        String?        @db.ObjectId

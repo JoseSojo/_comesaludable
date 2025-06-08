@@ -5,6 +5,7 @@ import { Bookmark, Clock, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import Modal from "../common/Modal";
 import CommentGlobal from "../sections/CommentGlobal";
+import Image from "next/image";
 
 interface Props {
     item: MenuType
@@ -45,13 +46,19 @@ export default function CardMenuPublic({ item }: Props) {
                 </div>
 
                 {/* Post Image */}
-                <div className="relative">
-                    {/* <img
-                                src={item.image}
+                <div className="relative overflow-x-auto flex">
+                    {
+                        item.photos.map((img) => (
+                            <Image
+                                width={500}
+                                height={200}
+                                src={`/uploads/${img.photoReference.pathString}`}
                                 alt={item.name}
-                                className="w-full h-80 object-cover"
-                            /> */}
-                    <div className="py-9 bg-gradient-to-l from-green-700 via-cyan-emerald to-emerald-500"></div>
+                                className="h-52 object-cover w-full flex-1 hover:flex-[5] transition-all duration-500"
+                            /> 
+                        ))
+                    }
+                    {/* <div className="py-9 bg-gradient-to-l from-green-700 via-cyan-emerald to-emerald-500"></div> */}
                     <div className="absolute top-3 right-3 bg-black bg-opacity-60 text-white px-2 py-1 rounded-full text-xs font-medium">
                         ${item.price}
                     </div>

@@ -36,7 +36,12 @@ export async function GET(req: Request) {
     include: {
       categoryReference: true,
       typeReference: true,
-      restauranteReference: true
+      restauranteReference: true,
+      photos: {
+        include: {
+          photoReference: true
+        }
+      }
     }
   });
 

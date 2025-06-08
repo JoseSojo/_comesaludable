@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import {
     Utensils,
-    MessageSquare
+    MessageSquare,
+    GalleryHorizontal
 } from 'lucide-react';
 import Tabs from '@/infrastructure/components/restaurant/Tabs';
 import ReviewsSection from '@/infrastructure/components/sections/restaurant/Reviews';
@@ -15,6 +16,7 @@ import FullScreenLoader from '@/infrastructure/components/common/Loadding';
 import Footer from '@/infrastructure/layout/Footer';
 import Header from '@/infrastructure/layout/Header';
 import { useAuth } from '@/domain/context/AuthContext';
+import Gallery from '@/infrastructure/components/common/upload/Gallery';
 
 
 interface Props {
@@ -22,7 +24,7 @@ interface Props {
 }
 
 const MenuProfilePublicPage: React.FC<Props> = ({ id }) => {
-    const { auth } = useAuth();
+    const { auth,restaurant } = useAuth();
     const menuCrud = useMenusCrud();
 
     const [menu, setMenu] = useState<MenuType | null>(null);
@@ -42,6 +44,7 @@ const MenuProfilePublicPage: React.FC<Props> = ({ id }) => {
     ];
 
     if (auth) tabs.push({ id: 'reviews', label: 'Interaciones', icon: <MessageSquare className="w-4 h-4" /> });
+    if (auth) tabs.push({ id: 'gallery', label: 'Galeria', icon: <GalleryHorizontal className="w-4 h-4" /> });
 
     useEffect(() => {
         (async () => {
@@ -79,6 +82,10 @@ const MenuProfilePublicPage: React.FC<Props> = ({ id }) => {
 
                         {activeTab === 'reviews' && (
                             <ReviewsSection reviews={[]} entity={menu} />
+                        )}
+
+                        {activeTab === 'gallery' && (
+                            <Gallery id={id} use='MENU' />
                         )}
                     </div>
                 </main>
