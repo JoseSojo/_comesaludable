@@ -17,8 +17,12 @@ export default function Comment() {
     const [filter, setFilter] = useState<{ category?: string, type?: string, param?: string,restaurant:string }>({ restaurant:restaurantData ? restaurantData.id : `` });
     const entity = useMenusCrud(page, 10, filter);
     const [searchInput, setSearchInput] = useState('');
-    const category = useCategoryCrud();
-    const type = useTypeCrud();
+
+    const [query1, setQuery1] = useState('');
+    const [query2, setQuery2] = useState('');
+
+    const category = useCategoryCrud(1,30,{ param:query1 });
+    const type = useTypeCrud(1,30,{ param:query2 });
 
     const HandleChangeSelectFilter = (selected: any, name: string) => {
         if (name === "category") setFilter({ ...filter, category: selected.id });
@@ -61,10 +65,10 @@ export default function Comment() {
 
                     <div className="flex gap-3 flex-wrap">
                         <div className='relative'>
-                            <SearchSelect options={category.list} onChange={HandleChangeSelectFilter} placeholder='Categoría' name='category' />
+                            <SearchSelect query={query1} setQuery={setQuery1} options={category.list} onChange={HandleChangeSelectFilter} placeholder='Categoría' name='category' />
                         </div>
                         <div className='relative'>
-                            <SearchSelect options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
+                            <SearchSelect query={query2} setQuery={setQuery2} options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
                         </div>
                     </div>
                 </div>

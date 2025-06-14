@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function CommentGlobal({ coment,id,title,cllb }: Props) {
-    const { createComent } = useCommentCrud(0,0,{});
+    const { createComent } = useCommentCrud(1,0,{});
 
     const { user } = useAuth();
     const [rating, setRating] = useState(0);

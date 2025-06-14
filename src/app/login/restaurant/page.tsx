@@ -110,16 +110,16 @@ const RestaurantLogin = () => {
             type="submit"
             className="w-full bg-green-500 text-white py-3 px-4 rounded-md hover:bg-green-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-lg"
           >
-            Access Dashboard
+            Acceder
           </button>
         </div>
       </form>
 
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-600">
-          Having trouble with your code?{' '}
+          Olvidaste tu codigo?{' '}
           <a href="#" className="font-medium text-green-600 hover:text-green-500">
-            Contact support
+            Contactar supervisores
           </a>
         </p>
       </div>

@@ -4,36 +4,16 @@ import { useEnvironmentCrud } from "@/application/hooks/core/useEnvironment";
 import { useTypeCrud } from "@/application/hooks/core/useType";
 import { useRestaurantCrud } from "@/application/hooks/useRestaurant";
 import FullScreenLoader from "@/infrastructure/components/common/Loadding";
-import PaginateSection from "@/infrastructure/components/common/PaginateSection";
-import SearchSelect from "@/infrastructure/components/common/SelectInput";
-import RestaurantPublicCard from "@/infrastructure/components/public/RestaurantPublicCard";
 import RestaurantSection from "@/infrastructure/components/sections/RestaurantSection";
 import Footer from "@/infrastructure/layout/Footer";
 import Header from "@/infrastructure/layout/Header";
-import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function MenuSearchPage() {
     const [page, setPage] = useState(1)
     const [filter, setFilter] = useState<{ environment?: string, type?: string, param?: string }>({});
     const entity = useRestaurantCrud(page, 10, filter);
-    const [searchInput, setSearchInput] = useState('');
-    const environment = useEnvironmentCrud();
-    const type = useTypeCrud();
 
-    const HandleChangeSelectFilter = (selected: any, name: string) => {
-        if (name === "environment") setFilter({ ...filter, environment: selected.id });
-        if (name === "type") setFilter({ ...filter, type: selected.id });
-    }
-
-    // Este useEffect aplica el debounce
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setFilter((prev) => ({ ...prev, param: searchInput }));
-        }, 300);
-
-        return () => clearTimeout(timeout); // limpia el timeout si se actualiza antes de los 300ms
-    }, [searchInput]);
 
     return entity.loading ? <FullScreenLoader /> : (
         <>

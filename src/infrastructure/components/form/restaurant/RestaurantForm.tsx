@@ -21,8 +21,12 @@ interface Props {
 
 export default function RestaurantForm({ initialData, end, title,typeForm=`create` }: Props) {
     const instance = useRestaurantCrud();
-    const type = useTypeCrud();
-    const environment = useEnvironmentCrud();
+
+    const [query1, setQuery1] = useState('');
+    const [query2, setQuery2] = useState('');
+
+    const environment = useEnvironmentCrud(1,30,{ param:query1 });
+    const type = useTypeCrud(1,30,{ param:query2 });
 
     const [data, setData] = useState<CustomType>(initialData);
 
@@ -98,11 +102,11 @@ export default function RestaurantForm({ initialData, end, title,typeForm=`creat
                 </label>
                 <label className="">
                     <span className="text-gray-500 text-xs font-bold">Tipo</span>
-                    <SearchSelect initial={data && data.typeReference ? data.typeReference : undefined} name="typeId" onChange={HandleChangeSelectData} options={type.list} />
+                    <SearchSelect query={query1} setQuery={setQuery1} initial={data && data.typeReference ? data.typeReference : undefined} name="typeId" onChange={HandleChangeSelectData} options={type.list} />
                 </label>
                 <label className="">
                     <span className="text-gray-500 text-xs font-bold">Ambiente</span>
-                    <SearchSelect initial={data && data.environmentReference ? data.environmentReference : undefined} name="environmentId" onChange={HandleChangeSelectData} options={environment.list} />
+                    <SearchSelect query={query2} setQuery={setQuery2} initial={data && data.environmentReference ? data.environmentReference : undefined} name="environmentId" onChange={HandleChangeSelectData} options={environment.list} />
                 </label>
             </div>
 

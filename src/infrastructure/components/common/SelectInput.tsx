@@ -1,5 +1,5 @@
 import { Category, Environment, Type } from "@prisma/client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export type Option = Type | Category | Environment
 
@@ -8,14 +8,15 @@ type SearchSelectProps = {
   placeholder?: string;
   name: string;
   onChange: (selected: Option | null, name: string) => void;
-  initial?: Option
+  initial?: Option;
+  setQuery: Dispatch<SetStateAction<string>>;
+  query: string;
 };
 
-export default function SearchSelect({ options, placeholder, onChange,name,initial }: SearchSelectProps) {
-  const [query, setQuery] = useState("");
+export default function SearchSelect({ options, placeholder, onChange,name,initial,query,setQuery }: SearchSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<Option | null>(initial ? initial : null);
-
+  
   const handleSelect = (option: Option) => {
     setSelected(option);
     setQuery(option.name);

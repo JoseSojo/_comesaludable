@@ -107,7 +107,7 @@ const Footer = () => {
         
         <div className="border-t border-gray-200 pt-8">
           <p className="text-center text-gray-500 dark:text-gray-200 text-sm">
-            &copy; {new Date().getFullYear()} NutriLife. All rights reserved.
+            &copy; {new Date().getFullYear()} #ComeSaludable. All rights reserved.
           </p>
         </div>
       </div>

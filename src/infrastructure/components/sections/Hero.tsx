@@ -10,7 +10,7 @@ import CustomMasterMap from '../common/map/CustomMasterMap';
 
 const Hero = () => {
 
-  const restaurants = useRestaurantCrud(0,0)
+  const restaurants = useRestaurantCrud(1,0)
   const [ubications, setUbications] = useState<RestaurantsType[]>([]);
 
   useEffect(() => {

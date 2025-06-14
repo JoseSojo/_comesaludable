@@ -77,33 +77,19 @@ const AdminLogin = () => {
           error={errors.password}
         />
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              className="h-4 w-4 border-gray-300 rounded text-green-600 focus:ring-green-500"
-            />
-            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-              Remember me
-            </label>
-          </div>
-        </div>
-
         <div>
           <button
             type="submit"
             className="w-full bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-2"
           >
-            Access Admin Panel
+            Entrar
           </button>
         </div>
       </form>
 
       <div className="mt-8 text-center">
-        <p className="text-sm text-gray-600">
-          This area is restricted to authorized personnel only.
+        <p className="text-sm text-gray-600 dark:text-gray-300">
+          Area restringida para personal autorizado.
         </p>
       </div>
     </AuthLayout>

@@ -35,7 +35,7 @@ export default function CardRestaurantPublic({ item }: Props) {
             <div key={item.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
                 {/* Post Header */}
                 <div className="flex items-center justify-between p-4">
-                    <div className="flex items-center space-x-3">
+                    <Link href={`/restaurantes/${item.id}`} className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-900 rounded-full flex items-center justify-center">
                             <span className="text-white text-sm font-semibold">{item.name.substring(0, 2)}</span>
                         </div>
@@ -43,7 +43,7 @@ export default function CardRestaurantPublic({ item }: Props) {
                             <p className="font-semibold text-sm">{item.name}</p>
                             {/* <p className="text-xs text-gray-500">{item.category}</p> */}
                         </div>
-                    </div>
+                    </Link>
                 </div>
 
                 {/* Post Image */}

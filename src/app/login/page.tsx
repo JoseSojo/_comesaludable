@@ -48,8 +48,8 @@ export default function LoginPage() {
 
     return (
         <AuthLayout
-            title="Welcome Back"
-            subtitle="Log in to access your healthy meal plans"
+            title="Bienvenido"
+            subtitle="Accede a #ComeSaludable"
         >
             <form onSubmit={handleSubmit} className="space-y-6">
                 <InputField
@@ -74,26 +74,6 @@ export default function LoginPage() {
                     error={errors.password}
                 />
 
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                        <input
-                            id="remember-me"
-                            name="remember-me"
-                            type="checkbox"
-                            className="h-4 w-4 border-gray-300 rounded text-green-600 focus:ring-green-500"
-                        />
-                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <div className="text-sm">
-                        <a href="#" className="font-medium text-green-600 hover:text-green-500">
-                            Forgot your password?
-                        </a>
-                    </div>
-                </div>
-
                 <div>
                     <button
                         type="submit"
@@ -105,7 +85,7 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6 text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-200">
                     No tienes cuenta?{' '}
                     <Link href="/register" className="font-medium text-green-600 hover:text-green-500">
                         Crear cuenta
@@ -114,7 +94,7 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-8 text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-200">
                     Eres restaurant?{' '}
                     <Link href="/restaurant-login" className="font-medium text-green-600 hover:text-green-500">
                         Entrar como restaurant

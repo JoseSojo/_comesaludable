@@ -27,12 +27,8 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
           <div className="text-white max-w-md px-8">
             <Link href="/" className="inline-flex items-center mb-8 text-white">
               <Leaf className="h-8 w-8 mr-2" />
-              <span className="dark:text-gray-50 text-2xl font-bold">NutriLife</span>
+              <span className="dark:text-gray-50 text-2xl font-bold">#ComeSaludable</span>
             </Link>
-            <h1 className="text-4xl font-bold mb-4">Healthy eating starts here</h1>
-            <p className="text-lg text-gray-200">
-              Join our community of health-conscious food lovers and discover a better way to eat.
-            </p>
           </div>
         </div>
       </div>
@@ -41,12 +37,12 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
           <div className="lg:hidden flex items-center justify-center mb-8">
             <Link href="/" className="inline-flex items-center text-green-500">
               <Leaf className="h-8 w-8 mr-2" />
-              <span className="dark:text-gray-50 text-2xl font-bold">NutriLife</span>
+              <span className="dark:text-gray-50 text-2xl font-bold">#ComeSaludable</span>
             </Link>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">{title}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 text-center">{title}</h2>
           {subtitle && (
-            <p className="text-gray-600 mb-8 text-center">{subtitle}</p>
+            <p className="text-gray-600 dark:text-gray-300 mb-8 text-center">{subtitle}</p>
           )}
           {children}
         </div>

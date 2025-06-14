@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 
 const Register = () => {
   const router = useRouter()
-  const user = useUserCrud(0,0);
+  const user = useUserCrud(1,0);
   const [email, setEmail] = useState('');
   const [lastname, setLastname] = useState('');
   const [name, setName] = useState('');
@@ -91,7 +91,7 @@ const Register = () => {
   return (
     <AuthLayout
       title="Create an Account"
-      subtitle="Join NutriLife and start your healthy food journey"
+      subtitle="Join #ComeSaludable and start your healthy food journey"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         <InputField

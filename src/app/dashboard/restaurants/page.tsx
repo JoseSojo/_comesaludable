@@ -19,9 +19,13 @@ export default function RestaurantPage() {
     const [filter, setFilter] = useState<{ environment?: string, type?: string, param?: string }>({});
     const entity = useRestaurantCrud(page, 10, filter);
     const [searchInput, setSearchInput] = useState('');
-    const environment = useEnvironmentCrud();
-    const type = useTypeCrud();
     const [selectIdDelete, setSelectIdDelete] = useState<string | null>(null);
+    
+    const [query1, setQuery1] = useState('');
+    const [query2, setQuery2] = useState('');
+
+    const environment = useEnvironmentCrud(1, 30, { param: query1 });
+    const type = useTypeCrud(1, 30, { param: query2 });
 
     const HandleChangeSelectFilter = (selected: any, name: string) => {
         if (name === "environment") setFilter({ ...filter, environment: selected.id });
@@ -45,10 +49,10 @@ export default function RestaurantPage() {
 
             {
                 selectIdDelete && <Modal isOpen={selectIdDelete ? true : false} onClose={() => setSelectIdDelete(null)}>
-                    <DeleteAlert deleteFn={()=> {entity.deleteRestaurant(selectIdDelete); setSelectIdDelete(null)}} />
+                    <DeleteAlert deleteFn={() => { entity.deleteRestaurant(selectIdDelete); setSelectIdDelete(null) }} />
                 </Modal>
             }
-            
+
             <div className="space-y-6">
                 <div className="flex justify-between items-center">
                     <div>
@@ -74,10 +78,10 @@ export default function RestaurantPage() {
 
                     <div className="flex gap-3 flex-wrap">
                         <div className='relative'>
-                            <SearchSelect options={environment.list} onChange={HandleChangeSelectFilter} placeholder='Ambiente' name='environment' />
+                            <SearchSelect query={query1} setQuery={setQuery1} options={environment.list} onChange={HandleChangeSelectFilter} placeholder='Ambiente' name='environment' />
                         </div>
                         <div className='relative'>
-                            <SearchSelect options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
+                            <SearchSelect query={query2} setQuery={setQuery2} options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
                         </div>
                         <Button click={() => setModalForm(true)} text='Crear' />
 

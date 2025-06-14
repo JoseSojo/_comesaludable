@@ -4,13 +4,9 @@ import { useCategoryCrud } from "@/application/hooks/core/useCategory";
 import { useTypeCrud } from "@/application/hooks/core/useType";
 import { useMenusCrud } from "@/application/hooks/useMenus";
 import { useAuth } from "@/domain/context/AuthContext";
-import PaginateSection from "@/infrastructure/components/common/PaginateSection";
-import SearchSelect from "@/infrastructure/components/common/SelectInput";
-import MenuPublicCard from "@/infrastructure/components/public/MenuPublicCard";
 import MenuSection from "@/infrastructure/components/sections/MenuSection";
 import Footer from "@/infrastructure/layout/Footer";
 import Header from "@/infrastructure/layout/Header";
-import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function MenuSearchPage() {

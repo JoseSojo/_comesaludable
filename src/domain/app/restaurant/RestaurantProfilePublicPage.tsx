@@ -16,6 +16,7 @@ import RestaurantCard from '@/infrastructure/components/sections/restaurant/Cont
 import Header from '@/infrastructure/layout/Header';
 import Footer from '@/infrastructure/layout/Footer';
 import FullScreenLoader from '@/infrastructure/components/common/Loadding';
+import CustomMasterMap from '@/infrastructure/components/common/map/CustomMasterMap';
 
 
 interface Props {
@@ -40,8 +41,8 @@ const RestaurantPublicProfile: React.FC<Props> = ({ id }) => {
     const tabs = [
         { id: 'profile', label: 'Ficha', icon: <Utensils className="w-4 h-4" /> },
         { id: 'menu', label: 'Menus', icon: <Menu className="w-4 h-4" /> },
-        { id: 'gallery', label: 'Galeria', icon: <Camera className="w-4 h-4" /> },
-        { id: 'reviews', label: 'Interaciones', icon: <MessageSquare className="w-4 h-4" /> },
+        // { id: 'gallery', label: 'Galeria', icon: <Camera className="w-4 h-4" /> },
+        // { id: 'reviews', label: 'Interaciones', icon: <MessageSquare className="w-4 h-4" /> },
     ];
 
     useEffect(() => {
@@ -94,6 +95,10 @@ const RestaurantPublicProfile: React.FC<Props> = ({ id }) => {
                         {activeTab === 'menu' && (
                             <MenuSection update={false} restaurantId={id as string} />
                         )}
+                    </div>
+
+                    <div className="w-full mt-5 relative">
+                        <CustomMasterMap ubications={[restaurant]} zoomInicial={7} />
                     </div>
                 </main>
             </div>

@@ -14,8 +14,12 @@ export default function RestaurantSection() {
     const entity = useRestaurantCrud(page, 10, filter);
 
     const [searchInput, setSearchInput] = useState('');
-    const category = useCategoryCrud();
-    const type = useTypeCrud();
+    
+    const [query1, setQuery1] = useState('');
+    const [query2, setQuery2] = useState('');
+
+    const category = useCategoryCrud(1, 30, { param: query1 });
+    const type = useTypeCrud(1, 30, { param: query2 });
 
     const HandleChangeSelectFilter = (selected: any, name: string) => {
         if (name === "environment") setFilter({ ...filter, environment: selected.id });
@@ -40,10 +44,10 @@ export default function RestaurantSection() {
                 </div>
 
                 <div className='relative'>
-                    <SearchSelect options={category.list} onChange={HandleChangeSelectFilter} placeholder='Ambiente' name='environment' />
+                    <SearchSelect query={query1} setQuery={setQuery1} options={category.list} onChange={HandleChangeSelectFilter} placeholder='Ambiente' name='environment' />
                 </div>
                 <div className='relative'>
-                    <SearchSelect options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
+                    <SearchSelect query={query2} setQuery={setQuery2} options={type.list} onChange={HandleChangeSelectFilter} placeholder='Tipos' name='type' />
                 </div>
             </div>
 
