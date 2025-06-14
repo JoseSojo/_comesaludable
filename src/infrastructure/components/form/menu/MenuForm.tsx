@@ -21,8 +21,12 @@ interface Props {
 
 export default function MenuForm({ restaurantId, initialData, end, typeForm }: Props) {
     const instance = useMenusCrud();
-    const category = useCategoryCrud();
-    const type = useTypeCrud();
+
+    const [query1, setQuery1] = useState('');
+    const [query2, setQuery2] = useState('');
+
+    const category = useCategoryCrud(1,30,{ param:query1 });
+    const type = useTypeCrud(1,30,{ param:query2 });
 
     const [data, setData] = useState<any>(initialData);
 
@@ -110,11 +114,11 @@ export default function MenuForm({ restaurantId, initialData, end, typeForm }: P
                 </label>
                 <label className="">
                     <span className="text-gray-500 text-xs font-bold">Categoria</span>
-                    <SearchSelect name="categoryId" onChange={HandleChangeSelectData} options={category.list} />
+                    <SearchSelect query={query1} setQuery={setQuery1} name="categoryId" onChange={HandleChangeSelectData} options={category.list} />
                 </label>
                 <label className="">
                     <span className="text-gray-500 text-xs font-bold">Tipo</span>
-                    <SearchSelect name="typeId" onChange={HandleChangeSelectData} options={type.list} />
+                    <SearchSelect query={query2} setQuery={setQuery2} name="typeId" onChange={HandleChangeSelectData} options={type.list} />
                 </label>
                 <label className="col-span-2">
                     <span className="text-gray-500 text-xs font-bold">Descripción</span>
